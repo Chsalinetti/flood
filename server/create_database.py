@@ -2,7 +2,7 @@ import sqlite3
 
 # Creates initial database for API
 def create_database():
-    db = sqlite3.connect('database.db')
+    db = sqlite3.connect('albums.db')
     cursor = db.cursor()
     
     # Create assets table
@@ -12,7 +12,7 @@ def create_database():
             title TEXT NOT NULL,
             artist TEXT NOT NULL,
             year INTEGER,
-            type TEXT CHECK(type IN ('manssually_added', 'from_library')) NOT NULL,
+            type TEXT CHECK(type IN ('manually_added', 'from_library')) NOT NULL,
             hidden TEXT CHECK(hidden IN ('yes', 'no')) DEFAULT 'no',
             tags TEXT)
 
