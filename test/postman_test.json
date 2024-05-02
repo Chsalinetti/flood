@@ -1,0 +1,213 @@
+{
+	"info": {
+		"_postman_id": "6b73224a-8a7d-4c67-9022-b0c25a3f964e",
+		"name": "Flask Album APIs",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Add Album",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"Album 1\",\n    \"artist\": \"Artist 1\",\n    \"year\": 2022,\n    \"type\": \"manually_added\",\n    \"tags\": [\"tag1\", \"tag2\"]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/add_album",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"add_album"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Title",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"New Title\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/edit_title/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"edit_title",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Artist",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"artist\": \"New Artist\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/edit_artist/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"edit_artist",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Edit Year",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"year\": 2023\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/edit_year/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"edit_year",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Toggle Hide",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5000/toggle_hide/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"toggle_hide",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Add Tags",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tags\": [\"new_tag\"]\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/add_tags/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"add_tags",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Tags",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"tag\": \"tag1\"\n}"
+				},
+				"url": {
+					"raw": "http://localhost:5000/remove_tags/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"remove_tags",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Remove Album",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"body": {},
+				"url": {
+					"raw": "http://localhost:5000/remove_album/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"remove_album",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get All Albums",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/get_all_albums",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"get_all_albums"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
