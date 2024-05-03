@@ -1,18 +1,12 @@
+// AlbumList.js
 import React from 'react';
+import Album from './Album';
 
-import './AlbumList.css'; // Import CSS file
-
-function AlbumList({ albums }) {
+function AlbumList({ albums, fetchAllAlbums }) {
   return (
-    <div className="album-list">
+    <div>
       {albums.map(album => (
-        <div key={album.id} className="album">
-          <h2>{album.title}</h2>
-          <p>Artist: {album.artist}</p>
-          <p>Year: {album.year}</p>
-          <p>Tags: {album.tags}</p>
-          {/* Add buttons for editing and other actions */}
-        </div>
+        <Album key={album.id} album={album} fetchAllAlbums={fetchAllAlbums} />
       ))}
     </div>
   );

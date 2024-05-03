@@ -1,0 +1,22 @@
+/* Album.css */
+.Album {
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    padding: 10px;
+  }
+  
+  .Album-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .hide-button {
+    background-color: red;
+    color: white;
+  }
+  
+  .Album-bottom button {
+    margin-right: 5px;
+  }
+  
