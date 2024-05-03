@@ -5,8 +5,8 @@ import './Album.css';
 function Album({ album, fetchAllAlbums }) {
   const handleHide = async () => {
     try {
-      const response = await fetch(`/toggle_hide/${album.id}`, {
-        method: 'PUT',
+      const response = await fetch(`/remove_album/${album.id}`, {
+        method: 'DELETE',
       });
       if (response.ok) {
         console.log('Album hidden/unhidden successfully');
@@ -22,10 +22,10 @@ function Album({ album, fetchAllAlbums }) {
   return (
     <div className="Album">
       <div className="Album-top">
-        <button>Title: {album.title}</button>
-        <button>Artist: {album.artist}</button>
-        <button>Year: {album.year}</button>
-        <button className="hide-button" onClick={handleHide}>Toggle Hide</button>
+        <button>{album.title}</button>
+        <button>{album.artist}</button>
+        <button>{album.year}</button>
+        <button className="hide-button" onClick={handleHide}>X</button>
       </div>
       <div className="Album-bottom">
         {Array.isArray(album.tags) && album.tags.map(tag => (
