@@ -18,7 +18,7 @@ function AddAlbumButton({ fetchAllAlbums }) {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(albumData),
+        body: JSON.stringify({ ...albumData, type: 'manually_added' }), // Include the type "manually_added"
       });
       if (response.ok) {
         console.log('Album added successfully');
