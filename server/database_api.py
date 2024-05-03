@@ -1,7 +1,9 @@
 from flask import Flask, request, jsonify
 import sqlite3
+from flask_cors import CORS
 
 app = Flask(__name__)
+CORS(app)
 
 DATABASE = 'albums.db'
 
@@ -26,6 +28,7 @@ def query_db(query, values=(), one=False):
     cursor.close()
     db.close()
     return (results[0] if results else None) if one else results
+
 
 @app.route('/add_album', methods=['POST'])
 def add_album():

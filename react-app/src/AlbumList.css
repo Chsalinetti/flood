@@ -1,0 +1,19 @@
+.album-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-gap: 20px;
+}
+
+.album {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 20px;
+}
+
+.album h2 {
+  margin-top: 0;
+}
+
+.album p {
+  margin: 5px 0;
+}

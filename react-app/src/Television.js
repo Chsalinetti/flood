@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import './Television.css';
 import AlbumArt from './AlbumArt';
 import Image from './Image';
 import axios from 'axios';

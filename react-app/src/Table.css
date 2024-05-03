@@ -1,0 +1,35 @@
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 20px;
+  }
+  
+  .toolbar {
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  
+  .add-album-button {
+    margin-left: 10px;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: #007bff;
+    color: white;
+    font-size: 1.2em;
+    cursor: pointer;
+  }
+  
+  .add-album-button:hover {
+    background-color: #0056b3;
+  }
+  
+  .add-album-button:focus {
+    outline: none;
+  }
+  
+  .add-album-button:active {
+    background-color: #0056b3;
+  }
+  
