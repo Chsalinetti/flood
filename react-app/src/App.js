@@ -97,6 +97,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
+        Sort Yr. Music
         <UpdateFromSpotifyButton />
         {showAddAlbumForm ? (
           <div className='Header-buttons'>
