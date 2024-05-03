@@ -1,14 +1,20 @@
-// App.js
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import SearchBar from './SearchBar';
 import AlbumList from './AlbumList';
-import AddAlbumButton from './AddAlbumButton';
 import UpdateFromSpotifyButton from './UpdateFromSpotifyButton';
 
 function App() {
   const [albums, setAlbums] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAddAlbumForm, setShowAddAlbumForm] = useState(false);
+  const [newAlbumData, setNewAlbumData] = useState({
+    title: '',
+    artist: '',
+    year: '',
+    tags: '',
+    type: 'manually_added' // Set type to 'manually_added' by default
+  });
 
   useEffect(() => {
     fetchAllAlbums();
@@ -28,6 +34,48 @@ function App() {
     setSearchQuery(query);
   };
 
+  const handleAddAlbum = async () => {
+    try {
+      // Split tags by commas and trim whitespace
+      const tagsArray = newAlbumData.tags.split(',').map(tag => tag.trim());
+      const albumDataWithTags = {
+        ...newAlbumData,
+        tags: tagsArray
+      };
+
+      const response = await fetch('/add_album', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(albumDataWithTags)
+      });
+      if (response.ok) {
+        await fetchAllAlbums();
+        setShowAddAlbumForm(false);
+        setNewAlbumData({
+          title: '',
+          artist: '',
+          year: '',
+          tags: '',
+          type: 'manually_added'
+        });
+      } else {
+        console.error('Failed to add album');
+      }
+    } catch (error) {
+      console.error('Error adding album:', error);
+    }
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewAlbumData({
+      ...newAlbumData,
+      [name]: value
+    });
+  };
+
   const filteredAlbums = albums.filter(album => {
     const searchTerms = [
       album.title.toString(),
@@ -41,9 +89,20 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <SearchBar onSearch={handleSearch} />
-        <AddAlbumButton fetchAllAlbums={fetchAllAlbums} />
         <UpdateFromSpotifyButton />
+        {showAddAlbumForm ? (
+          <div className='Header-buttons'>
+            <input type="text" name="title" value={newAlbumData.title} onChange={handleInputChange} placeholder="Title" />
+            <input type="text" name="artist" value={newAlbumData.artist} onChange={handleInputChange} placeholder="Artist" />
+            <input type="text" name="year" value={newAlbumData.year} onChange={handleInputChange} placeholder="Year" />
+            <input type="text" name="tags" value={newAlbumData.tags} onChange={handleInputChange} placeholder="Tags (comma separated)" />
+            <button onClick={handleAddAlbum}>Add</button>
+            <button onClick={() => setShowAddAlbumForm(false)}>Cancel</button>
+          </div>
+        ) : (
+          <button onClick={() => setShowAddAlbumForm(true)}>Add Album</button>
+        )}
+        <SearchBar onSearch={handleSearch} />
       </header>
       <main>
         <AlbumList albums={filteredAlbums} fetchAllAlbums={fetchAllAlbums} />

@@ -1,28 +1,37 @@
-/* App.css */
 .App {
-    text-align: center;
-  }
-  
-  .App-header {
-    background-color: #282c34;
-    min-height: 10vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: white;
-  }
-  
-  .App-main {
-    margin-top: 20px;
-  }
-  
-  input[type="text"] {
-    margin: 5px;
-  }
-  
-  button {
-    margin: 5px;
-  }
-  
+  text-align: center;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 10vh;
+  display: flex;
+  flex-direction: column; /* Ensure items are aligned vertically */
+  align-items: flex-start; /* Align items to the left */
+  justify-content: flex-start; /* Align items to the top */
+  padding: 20px; /* Add some padding */
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.Header-buttons {
+  display: flex;
+  flex-direction: row; /* Align buttons horizontally */
+  align-items: center; /* Align buttons vertically */
+}
+
+.Header-buttons > * {
+  margin-right: 10px; /* Add some space between buttons */
+}
+
+.App-main {
+  margin-top: 20px;
+}
+
+input[type="text"] {
+  margin: 5px;
+}
+
+button {
+  margin: 5px;
+}
