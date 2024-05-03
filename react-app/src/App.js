@@ -8,6 +8,7 @@ import UpdateFromSpotifyButton from './UpdateFromSpotifyButton';
 
 function App() {
   const [albums, setAlbums] = useState([]);
+  const [searchQuery, setSearchQuery] = useState('');
 
   useEffect(() => {
     fetchAllAlbums();
@@ -23,15 +24,29 @@ function App() {
     }
   };
 
+  const handleSearch = (query) => {
+    setSearchQuery(query);
+  };
+
+  const filteredAlbums = albums.filter(album => {
+    const searchTerms = [
+      album.title.toString(),
+      album.artist.toString(),
+      album.year.toString(),
+      ...(Array.isArray(album.tags) ? album.tags.map(tag => tag.toString()) : [])
+    ];
+    return searchTerms.some(term => term.toLowerCase().includes(searchQuery.toLowerCase()));
+  });
+
   return (
     <div className="App">
       <header className="App-header">
-        <SearchBar />
+        <SearchBar onSearch={handleSearch} />
         <AddAlbumButton fetchAllAlbums={fetchAllAlbums} />
         <UpdateFromSpotifyButton />
       </header>
       <main>
-        <AlbumList albums={albums} fetchAllAlbums={fetchAllAlbums} />
+        <AlbumList albums={filteredAlbums} fetchAllAlbums={fetchAllAlbums} />
       </main>
     </div>
   );

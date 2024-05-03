@@ -22,9 +22,9 @@ function Album({ album, fetchAllAlbums }) {
   return (
     <div className="Album">
       <div className="Album-top">
-        <button>Edit Title</button>
-        <button>Edit Artist</button>
-        <button>Edit Year</button>
+        <button>Title: {album.title}</button>
+        <button>Artist: {album.artist}</button>
+        <button>Year: {album.year}</button>
         <button className="hide-button" onClick={handleHide}>Toggle Hide</button>
       </div>
       <div className="Album-bottom">
