@@ -1,22 +1,44 @@
 /* Album.css */
 .Album {
-    margin: 10px 0;
-    border: 1px solid #ccc;
-    padding: 10px;
-  }
-  
-  .Album-top {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .hide-button {
-    background-color: red;
-    color: white;
-  }
-  
-  .Album-bottom button {
-    margin-right: 5px;
-  }
-  
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align all items to the left */
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.Album-top {
+  display: flex;
+  justify-content: space-between; /* Distribute space between items */
+  width: 100%;
+  margin-bottom: 5px;
+}
+
+.Album-bottom {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center; /* Align items vertically */
+}
+
+button {
+  height: 30px; /* Set a fixed height for all buttons */
+}
+
+.hide-button {
+  margin-left: auto; /* Push the 'X' button to the far right */
+  color: white;
+  background-color: red; /* Make the button red */
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.add-tag-button {
+  margin-left: auto; /* Push the 'X' button to the far right */
+  color: white;
+  background-color: green; /* Make the button green */
+  border: none;
+  padding: 5px 10px;
+  cursor: pointer;
+}

@@ -28,10 +28,10 @@ function Album({ album, fetchAllAlbums }) {
         <button className="hide-button" onClick={handleHide}>X</button>
       </div>
       <div className="Album-bottom">
-        {Array.isArray(album.tags) && album.tags.map(tag => (
-          <button key={tag}>{tag}</button>
+        {album.tags.split(',').map(tag => (
+          <button key={tag.trim()}>{tag.trim()}</button>
         ))}
-        <button>Add Tag</button>
+        <button className="add-tag-button">+</button>
       </div>
     </div>
   );

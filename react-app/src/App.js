@@ -31,7 +31,7 @@ function App() {
   };
 
   const handleSearch = (query) => {
-    setSearchQuery(query);
+    setSearchQuery(query.toLowerCase().trim());
   };
 
   const handleAddAlbum = async () => {
@@ -77,13 +77,21 @@ function App() {
   };
 
   const filteredAlbums = albums.filter(album => {
-    const searchTerms = [
-      album.title.toString(),
-      album.artist.toString(),
+    const tagsArray = Array.isArray(album.tags) ? album.tags.map(tag => tag.toString().toLowerCase().trim()) : album.tags.split(",").map(tag => tag.toLowerCase().trim());
+    const albumData = [
+      album.title.toString().toLowerCase(),
+      album.artist.toString().toLowerCase(),
       album.year.toString(),
-      ...(Array.isArray(album.tags) ? album.tags.map(tag => tag.toString()) : [])
-    ];
-    return searchTerms.some(term => term.toLowerCase().includes(searchQuery.toLowerCase()));
+      ...tagsArray
+];
+
+
+    const queryTerms = searchQuery.toLowerCase().split(',').map(term => term.trim());
+
+
+    return queryTerms.every(queryTerm =>
+      albumData.some(term => term.includes(queryTerm))
+    );
   });
 
   return (
