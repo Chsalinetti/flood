@@ -155,7 +155,7 @@ function Album({ album, fetchAllAlbums }) {
         </button>
       </div>
       <div className="Album-bottom">
-        {album.tags.split(',').map((tag) => (
+        {album.tags ? album.tags.split(',').map((tag) => (
           <button
             key={tag.trim()}
             style={{ backgroundColor: hoveredTag === tag.trim() ? '#8B0000' : '' }}
@@ -165,7 +165,7 @@ function Album({ album, fetchAllAlbums }) {
           >
             {tag.trim()}
           </button>
-        ))}
+        )) : null}
         {isAddingTag ? (
           <>
             <input

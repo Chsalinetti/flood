@@ -30,6 +30,38 @@ def query_db(query, values=(), one=False):
     return (results[0] if results else None) if one else results
 
 
+from flask import request, jsonify
+
+@app.route('/update_from_spotify', methods=['POST'])
+def update_from_spotify():
+    data = request.json
+    # Assuming the data contains a list of albums in JSON format
+    albums_data = data.get('albums', [])
+
+    for album_data in albums_data:
+        album = album_data.get('album', {})
+        title = album.get('name', '')
+        artists = album.get('artists', [])
+        artist = artists[0]['name'] if artists else ''
+        year = album.get('release_date', None)
+        # Set type to 'from_library' always
+        type_ = 'from_library'
+        
+        # Check if the album already exists in the database
+        existing_album = query_db("SELECT * FROM Albums WHERE title = ? AND artist = ?", (title, artist), one=True)
+        
+        if existing_album:
+            # If album exists, mark it as not hidden
+            execute_query("UPDATE Albums SET hidden = 'no' WHERE id = ?", (existing_album['id'],))
+        else:
+            # Insert album into the database
+            execute_query("INSERT INTO Albums (title, artist, year, type, hidden) VALUES (?, ?, ?, ?, ?)",
+                          (title, artist, year, type_, 'no'))
+    
+    return jsonify({'message': 'Albums added or updated successfully'}), 200
+
+
+
 @app.route('/add_album', methods=['POST'])
 def add_album():
     data = request.json
