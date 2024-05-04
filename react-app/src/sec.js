@@ -1,1 +1,0 @@
-export const CLIENT_SECRET = '909bb34532ec418b94ec04d35e4ae71d';
