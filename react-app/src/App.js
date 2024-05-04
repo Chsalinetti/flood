@@ -4,6 +4,11 @@ import SearchBar from './SearchBar';
 import AlbumList from './AlbumList';
 import UpdateFromSpotifyButton from './UpdateFromSpotifyButton';
 
+const CLIENT_ID = '62bb217b2dc74ab8a7f2dd22c468b1f0';
+const REDIRECT_URI = 'http://localhost:3000';
+const AUTH_ENDPOINT = 'https://accounts.spotify.com/authorize';
+const RESPONSE_TYPE = 'code';
+
 function App() {
   const [albums, setAlbums] = useState([]);
   const [searchQuery, setSearchQuery] = useState('');
@@ -15,10 +20,19 @@ function App() {
     tags: '',
     type: 'manually_added' // Set type to 'manually_added' by default
   });
+  const [spotifyConnected, setSpotifyConnected] = useState(false);
 
   useEffect(() => {
+    if (!spotifyConnected && !window.location.href.includes("code=")) {
+      console.log("Connecting To Spotify...")
+      window.location.href = `${AUTH_ENDPOINT}?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=user-library-read`;
+      setSpotifyConnected(true);
+    } else if (!spotifyConnected && window.location.href.includes("code=")) {
+      console.log('Connected to Spotify.');
+      setSpotifyConnected(true);
+    }
     fetchAllAlbums();
-  }, []);
+  }, [spotifyConnected]);
 
   const fetchAllAlbums = async () => {
     try {
