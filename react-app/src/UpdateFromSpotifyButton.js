@@ -17,9 +17,7 @@ function UpdateFromSpotifyButton() {
       if (authorizationCode) {
         const accessToken = await getAccessToken(authorizationCode);
         console.log('Access Token:', accessToken);
-        
-    
-        
+      
       }
 
 
