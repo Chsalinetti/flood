@@ -30,25 +30,26 @@ def query_db(query, values=(), one=False):
     return (results[0] if results else None) if one else results
 
 
-from flask import request, jsonify
-
 @app.route('/update_from_spotify', methods=['POST'])
 def update_from_spotify():
     data = request.json
     # Assuming the data contains a list of albums in JSON format
     albums_data = data.get('albums', [])
 
+    # Mark all existing albums as hidden if they are from the library
+    execute_query("UPDATE Albums SET hidden = 'yes' WHERE type = 'from_library'")
+
     for album_data in albums_data:
         album = album_data.get('album', {})
         title = album.get('name', '')
         artists = album.get('artists', [])
         artist = artists[0]['name'] if artists else ''
-        year = album.get('release_date', None)
+        year = int(album.get('release_date', '').split('-')[0]) if album.get('release_date') else None
         # Set type to 'from_library' always
         type_ = 'from_library'
         
-        # Check if the album already exists in the database
-        existing_album = query_db("SELECT * FROM Albums WHERE title = ? AND artist = ?", (title, artist), one=True)
+        # Check if the album already exists in the database based on title and year
+        existing_album = query_db("SELECT * FROM Albums WHERE title = ? AND year = ? AND type = ?", (title, year, type_), one=True)
         
         if existing_album:
             # If album exists, mark it as not hidden
@@ -59,7 +60,6 @@ def update_from_spotify():
                           (title, artist, year, type_, 'no'))
     
     return jsonify({'message': 'Albums added or updated successfully'}), 200
-
 
 
 @app.route('/add_album', methods=['POST'])
@@ -101,9 +101,14 @@ def toggle_hide(album_id):
 
 @app.route('/add_tags/<int:album_id>', methods=['PUT'])
 def add_tags(album_id):
-    tags = request.json['tags']
+    tags = request.json.get('tags', [])
     current_tags = query_db("SELECT tags FROM Albums WHERE id = ?", (album_id,), one=True)['tags']
-    new_tags = ','.join(set(current_tags.split(',') + tags))
+    
+    if current_tags:
+        new_tags = ','.join(set(current_tags.split(',') + tags))
+    else:
+        new_tags = ','.join(set(tags))
+    
     execute_query("UPDATE Albums SET tags = ? WHERE id = ?", (new_tags, album_id))
     return jsonify({'message': 'Tags added successfully'}), 200
 
